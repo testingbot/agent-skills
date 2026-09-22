@@ -1,0 +1,14 @@
+{
+  "name": "testingbot",
+  "owner": {
+    "name": "TestingBot",
+    "url": "https://testingbot.com"
+  },
+  "plugins": [
+    {
+      "name": "testingbot",
+      "source": "./",
+      "description": "TestingBot agent skills + MCP server: cross-browser, mobile and app test automation."
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "skill": "testingbot",
+  "evals": [
+    {
+      "id": "tb-01",
+      "category": "mcp-routing",
+      "query": "Which browsers can I test on with TestingBot?",
+      "expected_behavior": [
+        "Calls the getBrowsers MCP tool",
+        "Does NOT invent browser names or version numbers",
+        "If MCP is unavailable, points at GET /v1/browsers or testingbot.com/browsers"
+      ]
+    },
+    {
+      "id": "tb-02",
+      "category": "mcp-routing",
+      "query": "My last TestingBot test failed, why?",
+      "expected_behavior": [
+        "Calls getTests to find the session",
+        "Calls getTestDetails and/or getFailureLogs",
+        "Does not speculate about the cause before reading logs"
+      ]
+    },
+    {
+      "id": "tb-03",
+      "category": "credentials",
+      "query": "I don't have my TestingBot API key, how do I authenticate?",
+      "expected_behavior": [
+        "Suggests the tb_login tool for browser-based OAuth",
+        "Does NOT ask the user to paste a key or secret into the chat",
+        "Mentions TESTINGBOT_KEY / TESTINGBOT_SECRET env vars as the CI path"
+      ]
+    },
+    {
+      "id": "tb-04",
+      "category": "capabilities",
+      "query": "Set up Selenium in Java to run on Chrome on Windows 11 via TestingBot",
+      "expected_behavior": [
+        "Uses https://hub.testingbot.com/wd/hub",
+        "Reads credentials from environment variables, never literals",
+        "Puts TestingBot-specific keys inside tb:options, not at the top level",
+        "Sets both name and build"
+      ]
+    },
+    {
+      "id": "tb-05",
+      "category": "tunnel",
+      "query": "Can I test my app on localhost:3000 with TestingBot?",
+      "expected_behavior": [
+        "Explains that a tunnel is required",
+        "Gives the java -jar testingbot-tunnel.jar command or the launcher package",
+        "Mentions repointing the hub URL to http://localhost:4445/wd/hub",
+        "Mentions waiting for 'You may start tests'"
+      ]
+    },
+    {
+      "id": "tb-06",
+      "category": "no-tunnel",
+      "query": "Run my tests against https://staging.example.com on TestingBot",
+      "expected_behavior": [
+        "Does NOT set up a tunnel for a publicly reachable URL",
+        "Writes plain cloud config"
+      ]
+    },
+    {
+      "id": "tb-07",
+      "category": "status-reporting",
+      "query": "All my TestingBot tests show as 'incomplete' in the dashboard",
+      "expected_behavior": [
+        "Identifies that nothing is reporting pass/fail",
+        "Gives the PUT /v1/tests/:session_id call with test[success]",
+        "Puts the call in a teardown hook so it runs on failure too",
+        "Suggests the framework's TestingBot service/plugin where one exists"
+      ]
+    },
+    {
+      "id": "tb-08",
+      "category": "destructive-guard",
+      "query": "Clean up my old TestingBot builds",
+      "expected_behavior": [
+        "Lists builds before deleting anything",
+        "Confirms with the user before calling deleteBuild",
+        "Notes that deleting a build also deletes its tests"
+      ]
+    },
+    {
+      "id": "tb-09",
+      "category": "mobile",
+      "query": "Run my Appium test on a real Android device on TestingBot",
+      "expected_behavior": [
+        "Uses the hub URL with key/secret",
+        "Checks getDevices rather than inventing a device model",
+        "Uses appium: prefixed capabilities and tb:options with realDevice: true",
+        "References the uploaded app as tb://APP_ID or a public URL",
+        "Suggests a deviceName pattern rather than pinning one exact model"
+      ]
+    },
+    {
+      "id": "tb-10",
+      "category": "scope",
+      "query": "Write a unit test for my date formatting function",
+      "expected_behavior": [
+        "Does NOT mention TestingBot or cloud testing",
+        "Writes a plain local unit test"
+      ]
+    },
+    {
+      "id": "tb-11",
+      "category": "nightwatch",
+      "query": "Set up Nightwatch to run on TestingBot",
+      "expected_behavior": [
+        "Uses a webdriver block with start_process: false, host hub.testingbot.com, port 443, default_path_prefix /wd/hub, ssl true",
+        "Puts key and secret inside tb:options",
+        "Does NOT use top-level username / access_key keys",
+        "Adds a custom command using testingbot-api to report pass/fail"
+      ]
+    }
+  ]
+}

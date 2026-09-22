@@ -1,0 +1,26 @@
+{
+  "name": "testingbot",
+  "description": "Write and debug cross-browser, mobile and app tests that run on the TestingBot cloud. Pairs with the TestingBot MCP server.",
+  "version": "0.1.0",
+  "author": {
+    "name": "TestingBot",
+    "url": "https://testingbot.com"
+  },
+  "homepage": "https://testingbot.com/support",
+  "repository": "https://github.com/testingbot/agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "testing",
+    "selenium",
+    "playwright",
+    "appium",
+    "cross-browser",
+    "e2e"
+  ],
+  "mcpServers": {
+    "testingbot": {
+      "command": "npx",
+      "args": ["-y", "@testingbot/mcp-server@latest"]
+    }
+  }
+}

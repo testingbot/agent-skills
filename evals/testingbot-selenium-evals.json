@@ -1,0 +1,108 @@
+{
+  "skill": "testingbot-selenium",
+  "evals": [
+    {
+      "id": "tbse-01",
+      "category": "cloud-config",
+      "query": "Set up my Selenium tests to run on TestingBot in Java",
+      "expected_behavior": [
+        "Uses https://hub.testingbot.com/wd/hub with RemoteWebDriver",
+        "Puts browserName, browserVersion and platformName at the top level",
+        "Puts TestingBot keys inside tb:options, never at the top level",
+        "Reads credentials from environment variables",
+        "Sets both name and build"
+      ]
+    },
+    {
+      "id": "tbse-02",
+      "category": "local-default",
+      "query": "Write a Selenium test that checks the search box works",
+      "expected_behavior": [
+        "Writes a plain local Selenium test",
+        "Does NOT add TestingBot cloud configuration unprompted",
+        "Uses explicit waits rather than sleeps"
+      ]
+    },
+    {
+      "id": "tbse-03",
+      "category": "status-reporting",
+      "query": "How do I mark my Selenium test as failed on TestingBot?",
+      "expected_behavior": [
+        "Uses executeScript with 'tb:test-result=failed'",
+        "Mentions tb:test-name for the session name",
+        "Puts the call in a teardown hook so it runs on failure",
+        "Offers the REST/API-client route as the alternative when the result is only known after the session ends"
+      ]
+    },
+    {
+      "id": "tbse-04",
+      "category": "session-id",
+      "query": "I need the TestingBot session ID for my Python Selenium test",
+      "expected_behavior": [
+        "Uses driver.session_id",
+        "Captures it while the driver is still alive",
+        "Mentions the testingbotclient package for updating the test"
+      ]
+    },
+    {
+      "id": "tbse-05",
+      "category": "capability-shape",
+      "query": "My TestingBot Selenium session won't start, it errors immediately",
+      "expected_behavior": [
+        "Checks whether TestingBot keys were left at the top level of capabilities",
+        "Explains that a strict W3C endpoint rejects unknown top-level keys",
+        "Does not immediately blame credentials or the network"
+      ]
+    },
+    {
+      "id": "tbse-06",
+      "category": "parallel",
+      "query": "Run my TestNG suite across 4 browsers in parallel on TestingBot",
+      "expected_behavior": [
+        "Uses TestNG's own parallel attribute and thread-count",
+        "Does NOT hand-roll threads",
+        "Mentions the account parallel limit and that queueing looks like flakiness",
+        "Uses one shared build value across the matrix"
+      ]
+    },
+    {
+      "id": "tbse-07",
+      "category": "languages",
+      "query": "Connect Selenium to TestingBot from C#",
+      "expected_behavior": [
+        "Uses RemoteWebDriver with the hub URI",
+        "Uses AddAdditionalOption for tb:options",
+        "Does not emit Java or Python code"
+      ]
+    },
+    {
+      "id": "tbse-08",
+      "category": "localhost",
+      "query": "Can my Selenium tests on TestingBot hit http://localhost:8080?",
+      "expected_behavior": [
+        "Explains a tunnel is required",
+        "Mentions repointing the hub URL to http://localhost:4445/wd/hub",
+        "Mentions tunnelIdentifier for parallel CI jobs"
+      ]
+    },
+    {
+      "id": "tbse-09",
+      "category": "debugging",
+      "query": "My Selenium tests pass locally but time out on TestingBot",
+      "expected_behavior": [
+        "Considers concurrency above the parallel limit as a cause of queueing",
+        "Suggests explicit waits over Thread.sleep for latency",
+        "Points at getFailureLogs with type selenium and the session video"
+      ]
+    },
+    {
+      "id": "tbse-10",
+      "category": "scope",
+      "query": "Why is my XPath selector not matching?",
+      "expected_behavior": [
+        "Debugs the selector",
+        "Does NOT pivot to TestingBot cloud configuration"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "skill": "testingbot-playwright",
+  "evals": [
+    {
+      "id": "tbpw-01",
+      "category": "cloud-config",
+      "query": "Configure Playwright to run my tests on TestingBot",
+      "expected_behavior": [
+        "Uses wss://cloud.testingbot.com/playwright with a capabilities query parameter",
+        "JSON-encodes a capabilities object containing tb:options",
+        "Puts key and secret inside tb:options, read from env vars",
+        "Uses platform (or platformName), never an 'os' key",
+        "Uses connectOptions.wsEndpoint in playwright.config.ts",
+        "Sets a build value"
+      ]
+    },
+    {
+      "id": "tbpw-02",
+      "category": "local-default",
+      "query": "Write a Playwright test that checks the login form works",
+      "expected_behavior": [
+        "Writes a plain local Playwright test",
+        "Does NOT add TestingBot cloud config unprompted",
+        "Uses web-first assertions"
+      ]
+    },
+    {
+      "id": "tbpw-03",
+      "category": "cross-browser",
+      "query": "I need to test on Safari but I'm on Windows",
+      "expected_behavior": [
+        "Recommends the cloud since Safari cannot run locally on Windows",
+        "Produces a projects array with a safari target",
+        "Uses chromium.connect regardless of target browser"
+      ]
+    },
+    {
+      "id": "tbpw-04",
+      "category": "parallelism",
+      "query": "Run my Playwright suite across 6 browsers on TestingBot in CI",
+      "expected_behavior": [
+        "One project per browser sharing a helper for the endpoint",
+        "Mentions the account parallel limit and that workers must stay under it",
+        "Uses the same build value across all projects",
+        "Does not call playwright install in the CI workflow"
+      ]
+    },
+    {
+      "id": "tbpw-05",
+      "category": "python",
+      "query": "Connect Playwright Python to TestingBot",
+      "expected_behavior": [
+        "Uses p.chromium.connect(ws_endpoint)",
+        "Builds the query string with urlencode",
+        "Does not emit TypeScript"
+      ]
+    },
+    {
+      "id": "tbpw-06",
+      "category": "debugging",
+      "query": "My Playwright test passes locally but fails on TestingBot",
+      "expected_behavior": [
+        "Asks about or checks app reachability (tunnel needed for localhost)",
+        "Suggests web-first assertions over waitForTimeout for timing issues",
+        "Points at session video and getFailureLogs before theorising",
+        "Does not suggest rewriting the test body to suit the cloud"
+      ]
+    },
+    {
+      "id": "tbpw-07",
+      "category": "localhost",
+      "query": "Run my Playwright tests against my local dev server on TestingBot",
+      "expected_behavior": [
+        "Sets up a tunnel",
+        "Uses globalSetup and globalTeardown so the tunnel is closed",
+        "Keeps baseURL pointing at localhost"
+      ]
+    },
+    {
+      "id": "tbpw-08",
+      "category": "real-device",
+      "query": "Test my site on a real iPhone with Playwright on TestingBot",
+      "expected_behavior": [
+        "Distinguishes Playwright device emulation from a real device",
+        "Sets deviceName and realDevice: true inside tb:options",
+        "Checks getDevices rather than naming a model from memory",
+        "Does not present devices['iPhone 13'] as real-device testing"
+      ]
+    },
+    {
+      "id": "tbpw-09",
+      "category": "status-reporting",
+      "query": "My Playwright tests on TestingBot all show up as incomplete",
+      "expected_behavior": [
+        "Uses page.evaluate(_ => {}, `testingbot_executor: ...`) with action setSessionStatus",
+        "Passes arguments.passed as a boolean, with a reason where available",
+        "Puts the call in a fixture or afterEach so it runs on failure too",
+        "Does NOT invent a tb: prefixed annotation or a Playwright-native API"
+      ]
+    },
+    {
+      "id": "tbpw-10",
+      "category": "session-id",
+      "query": "How do I get the TestingBot session ID from inside a Playwright test?",
+      "expected_behavior": [
+        "Uses the getSessionDetails action via testingbot_executor",
+        "Captures the return value of page.evaluate",
+        "Notes it returns an object containing sessionId"
+      ]
+    }
+  ]
+}

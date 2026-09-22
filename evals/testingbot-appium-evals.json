@@ -1,0 +1,119 @@
+{
+  "skill": "testingbot-appium",
+  "evals": [
+    {
+      "id": "tbap-01",
+      "category": "setup",
+      "query": "Run my Appium test on a real Android device on TestingBot",
+      "expected_behavior": [
+        "Uses https://hub.testingbot.com/wd/hub",
+        "Prefixes Appium capabilities with appium:",
+        "Puts realDevice: true inside tb:options, not under appium:",
+        "References the app as tb://APP_ID or a public URL",
+        "Reads credentials from environment variables"
+      ]
+    },
+    {
+      "id": "tbap-02",
+      "category": "upload",
+      "query": "How do I get my APK onto TestingBot for Appium testing?",
+      "expected_behavior": [
+        "Uses the uploadFile MCP tool or POST /v1/storage",
+        "Explains the response returns a tb:// app URL",
+        "Says to pass it as appium:app",
+        "Suggests reusing the ID rather than re-uploading an unchanged build"
+      ]
+    },
+    {
+      "id": "tbap-03",
+      "category": "namespaces",
+      "query": "My Appium session on TestingBot fails to start with an invalid capabilities error",
+      "expected_behavior": [
+        "Checks for missing appium: prefixes on vendor capabilities",
+        "Checks for TestingBot keys left outside tb:options",
+        "Explains Appium 2/3 reject unprefixed vendor capabilities",
+        "Does not immediately blame credentials"
+      ]
+    },
+    {
+      "id": "tbap-04",
+      "category": "product-routing",
+      "query": "I have an Espresso test suite, can I run it on TestingBot?",
+      "expected_behavior": [
+        "Identifies this as App Automate, not Appium",
+        "Points at uploadAppAutomateApp / uploadAppAutomateTests / runAppAutomateTest",
+        "Notes the run is async and must be polled",
+        "Does NOT write Appium capabilities"
+      ]
+    },
+    {
+      "id": "tbap-05",
+      "category": "product-routing",
+      "query": "Test my mobile website on an iPhone with TestingBot",
+      "expected_behavior": [
+        "Identifies this as browser testing, not an app test",
+        "Routes to Selenium or Playwright rather than Appium",
+        "Does NOT ask for an IPA"
+      ]
+    },
+    {
+      "id": "tbap-06",
+      "category": "device-selection",
+      "query": "Run my Appium tests on an iPhone on TestingBot",
+      "expected_behavior": [
+        "Checks getDevices rather than naming a model from memory",
+        "Suggests a deviceName pattern like iPhone.* over an exact model",
+        "Uses XCUITest as automationName"
+      ]
+    },
+    {
+      "id": "tbap-07",
+      "category": "status-reporting",
+      "query": "My Appium tests on TestingBot all show as incomplete",
+      "expected_behavior": [
+        "Uses execute_script with tb:test-result=passed or failed",
+        "Mentions tb:test-name for the session name",
+        "Puts the call in teardown so it runs on failure"
+      ]
+    },
+    {
+      "id": "tbap-08",
+      "category": "permissions",
+      "query": "My Appium test gets stuck on the Android location permission dialog",
+      "expected_behavior": [
+        "Suggests appium:autoGrantPermissions: true",
+        "Does not suggest clicking the dialog by coordinates"
+      ]
+    },
+    {
+      "id": "tbap-09",
+      "category": "flutter",
+      "query": "Can I test my Flutter app with Appium on TestingBot?",
+      "expected_behavior": [
+        "Says the app must be built in debug or profile mode, not release",
+        "Mentions flutter_driver in dev_dependencies and enableFlutterDriverExtension before runApp",
+        "Flags that these are changes to the app, not the test"
+      ]
+    },
+    {
+      "id": "tbap-10",
+      "category": "locale",
+      "query": "Run my Appium test with a Spanish locale on iOS and Android",
+      "expected_behavior": [
+        "Uses appium:locale",
+        "Uses es_ES for iOS and ES for Android",
+        "Notes that the two platforms take different formats"
+      ]
+    },
+    {
+      "id": "tbap-11",
+      "category": "version-pinning",
+      "query": "Should I pin the Appium version for my TestingBot tests?",
+      "expected_behavior": [
+        "Recommends leaving appiumVersion unset by default",
+        "Mentions tb:options.appiumVersion accepts latest, latest-1 or an explicit version",
+        "Notes Appium 3 prefixes security-flagged commands such as uiautomator2:adb_shell"
+      ]
+    }
+  ]
+}
